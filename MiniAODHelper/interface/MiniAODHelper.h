@@ -139,7 +139,7 @@ class MiniAODHelper{
   void SetRho(double);
   void SetJetCorrector(const JetCorrector*);
   void SetBoostedJetCorrector(const JetCorrector*);
-  void SetJetCorrectorUncertainty();
+  void SetJetCorrectorUncertainty( std::string JetName = "CHS" );
   void SetBoostedJetCorrectorUncertainty();
   void SetFactorizedJetCorrector();
   void SetPackedCandidates(const std::vector<pat::PackedCandidate> & all, int fromPV_thresh=1, float dz_thresh=9999., bool also_leptons=false);
