@@ -230,7 +230,7 @@ float LeptonSFHelper::GetMuonSF(  float muonPt , float muonEta , int syst , std:
   }
   else if ( type == "Trigger" ){
 
-    float mult4p2 = 0.2843;
+    float mult4p2 = 0.284;
     float mult4p3 = 0.716;
 
     thisBin = h_mu_TRIGGER_abseta_pt_ratio4p3->FindBin(searchEta,searchPt);
