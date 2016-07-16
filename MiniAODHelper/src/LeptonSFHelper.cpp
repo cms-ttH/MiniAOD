@@ -11,8 +11,10 @@ LeptonSFHelper::LeptonSFHelper( ){
   SetMuonMuonHistos( );
   SetElectronMuonHistos( );
 
-  electronMaxPt = 150;
-  muonMaxPt = 115;
+  //electronMaxPt = 150;
+  //muonMaxPt = 115;
+  electronMaxPt = 200;
+  muonMaxPt = 120;
 
 }
 
