@@ -11,8 +11,10 @@ LeptonSFHelper::LeptonSFHelper( ){
   SetMuonMuonHistos( );
   SetElectronMuonHistos( );
 
-  electronMaxPt = 150;
-  muonMaxPt = 115;
+  //electronMaxPt = 150;
+  //muonMaxPt = 115;
+  electronMaxPt = 199.99;
+  muonMaxPt = 119.99;
 
 }
 
@@ -167,7 +169,11 @@ float LeptonSFHelper::GetElectronSF(  float electronPt , float electronEta , int
     
     upval=nomval+error;
     downval=nomval-error;
-   
+    
+    if(nomval==0) {
+    	thisBin = h_ele_ID_abseta_pt_ratio->FindBin( searchEta , 20.001 );
+    	nomval=h_ele_ID_abseta_pt_ratio->GetBinContent( thisBin );
+    }
   }
   else if ( type == "Trigger" ){
 
@@ -186,6 +192,10 @@ float LeptonSFHelper::GetElectronSF(  float electronPt , float electronEta , int
     upval=nomval+error;
     downval=nomval-error;
     
+   if(nomval==0) {
+    	thisBin = h_ele_ISO_abseta_pt_ratio->FindBin( searchEta , 20.001 );
+    	nomval=h_ele_ISO_abseta_pt_ratio->GetBinContent( thisBin );
+    }
   }
   else {
    
@@ -224,13 +234,15 @@ float LeptonSFHelper::GetMuonSF(  float muonPt , float muonEta , int syst , std:
     downval=( nomval-error );
     upval=upval*( 1.0+0.01 );
     downval=downval*( 1.0-0.01 );
-
-
-
+    
+    if(nomval==0) {
+    	thisBin = h_mu_ID_abseta_pt_ratio->FindBin( searchEta , 20.001 );
+    	nomval=h_mu_ID_abseta_pt_ratio->GetBinContent( thisBin );
+    }
   }
   else if ( type == "Trigger" ){
 
-    float mult4p2 = 0.2843;
+    float mult4p2 = 0.284;
     float mult4p3 = 0.716;
 
     thisBin = h_mu_TRIGGER_abseta_pt_ratio4p3->FindBin(searchEta,searchPt);
@@ -261,7 +273,10 @@ float LeptonSFHelper::GetMuonSF(  float muonPt , float muonEta , int syst , std:
     upval=upval*( 1.0+0.005 );
     downval=downval*( 1.0-0.005 );
     
-      
+    if(nomval==0) {
+    	thisBin = h_mu_ISO_abseta_pt_ratio->FindBin( searchEta , 20.001 );
+    	nomval=h_mu_ISO_abseta_pt_ratio->GetBinContent( thisBin );
+    } 
   }
   else {
     
@@ -331,7 +346,9 @@ void LeptonSFHelper::SetElectronHistos( ){
 
   std::string IDinputFile = std::string(getenv("CMSSW_BASE")) + "/src/MiniAOD/MiniAODHelper/data/leptonSF/" + "ScaleFactor_GsfElectronToRECO_passingTrigWP80.txt.egamma_SF2D.root";
   std::string TRIGGERinputFile = std::string(getenv("CMSSW_BASE")) + "/src/MiniAOD/MiniAODHelper/data/leptonSF/" + "eleTrig_SF.root";
-  std::string ISOinputFile = std::string(getenv("CMSSW_BASE")) + "/src/MiniAOD/MiniAODHelper/data/leptonSF/" + "Isolation_SF.root";
+  //std::string ISOinputFile = std::string(getenv("CMSSW_BASE")) + "/src/MiniAOD/MiniAODHelper/data/leptonSF/" + "Isolation_SF.root";
+  std::string ISOinputFile = std::string(getenv("CMSSW_BASE")) + "/src/MiniAOD/MiniAODHelper/data/leptonSF/" + "eleRECO.txt.egamma_SF2D.root";
+
 
   TFile *f_IDSF = new TFile(std::string(IDinputFile).c_str(),"READ");
   TFile *f_TRIGGERSF = new TFile(std::string(TRIGGERinputFile).c_str(),"READ");
@@ -339,15 +356,15 @@ void LeptonSFHelper::SetElectronHistos( ){
 
   h_ele_ID_abseta_pt_ratio = (TH2F*)f_IDSF->Get("EGamma_SF2D"); 
   h_ele_TRIGGER_abseta_pt_ratio = (TH2F*)f_TRIGGERSF->Get("h_eleTrig_SF");
-  h_ele_ISO_abseta_pt_ratio = (TH2F*)f_ISOSF->Get("IsolationSF");
+  h_ele_ISO_abseta_pt_ratio = (TH2F*)f_ISOSF->Get("EGamma_SF2D");
 
 }
 
 void LeptonSFHelper::SetMuonHistos( ){
   
-  std::string IDinputFile = std::string(getenv("CMSSW_BASE")) + "/src/MiniAOD/MiniAODHelper/data/leptonSF/" + "MuonID_Z_RunCD_Reco76X_Feb15.root";
+  std::string IDinputFile = std::string(getenv("CMSSW_BASE")) + "/src/MiniAOD/MiniAODHelper/data/leptonSF/" + "MuonID_Z_2016runB_2p6fb.root";
   std::string TRIGGERinputFile =  std::string(getenv("CMSSW_BASE")) + "/src/MiniAOD/MiniAODHelper/data/leptonSF/" + "SingleMuonTrigger_Z_RunCD_Reco76X_Feb15.root";
-  std::string ISOinputFile =  std::string(getenv("CMSSW_BASE")) + "/src/MiniAOD/MiniAODHelper/data/leptonSF/" + "/MuonIso_Z_RunCD_Reco76X_Feb15.root";
+  std::string ISOinputFile =  std::string(getenv("CMSSW_BASE")) + "/src/MiniAOD/MiniAODHelper/data/leptonSF/" + "MuonISO_Z_2016runB_2p6fb.root";
 
   TFile *f_IDSF = new TFile(std::string(IDinputFile).c_str(),"READ");
   TFile *f_TRIGGERSF = new TFile(std::string(TRIGGERinputFile).c_str(),"READ");
