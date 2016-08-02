@@ -362,9 +362,9 @@ void LeptonSFHelper::SetElectronHistos( ){
 
 void LeptonSFHelper::SetMuonHistos( ){
   
-  std::string IDinputFile = "data/leptonSF/MuonID_Z_2016runB_2p6fb.root";
+  std::string IDinputFile = "data/leptonSF/MuonID_Z_RunBCD_prompt80X_7p65.root";
   std::string TRIGGERinputFile =  "data/leptonSF/SingleMuonTrigger_Z_RunCD_Reco76X_Feb15.root";
-  std::string ISOinputFile =  "data/leptonSF/MuonISO_Z_2016runB_2p6fb.root";
+  std::string ISOinputFile =  "data/leptonSF/MuonIso_Z_RunBCD_prompt80X_7p65.root";
 
   TFile *f_IDSF = new TFile(std::string(IDinputFile).c_str(),"READ");
   TFile *f_TRIGGERSF = new TFile(std::string(TRIGGERinputFile).c_str(),"READ");
