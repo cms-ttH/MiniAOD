@@ -2366,7 +2366,8 @@ std::vector<pat::Jet> MiniAODHelper::GetDeltaRCleanedJets(
 /// JER function
 
 bool MiniAODHelper::jetdPtMatched(const pat::Jet& inputJet) {
-  std::ifstream infile("MiniAOD/MiniAODHelper/data/Spring16_25nsV6_MC_PtResolution_AK4PFchs.txt");
+  std::ifstream infile((std::string(getenv("CMSSW_BASE")) + "/src/" + "MiniAOD/MiniAODHelper/data/Spring16_25nsV6_MC_PtResolution_AK4PFchs.txt").c_str());
+  //std::ifstream infile("MiniAOD/MiniAODHelper/data/Spring16_25nsV6_MC_PtResolution_AK4PFchs.txt");
   double eta_min;
   double eta_max;
   double rho_min;
