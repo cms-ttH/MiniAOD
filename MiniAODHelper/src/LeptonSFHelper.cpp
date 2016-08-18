@@ -167,6 +167,11 @@ float LeptonSFHelper::GetElectronSF(  float electronPt , float electronEta , int
 
     upval=nomval+error;
     downval=nomval-error;
+    
+    if(nomval==0) {
+    	thisBin = h_ele_ID_abseta_pt_ratio->FindBin( searchEta , 20.001 );
+    	nomval=h_ele_ID_abseta_pt_ratio->GetBinContent( thisBin );
+    }
 
   }
   else if ( type == "Trigger" ){
@@ -185,6 +190,11 @@ float LeptonSFHelper::GetElectronSF(  float electronPt , float electronEta , int
     error=h_ele_ISO_abseta_pt_ratio->GetBinError( thisBin );
     upval=nomval+error;
     downval=nomval-error;
+    
+    if(nomval==0) {
+    	thisBin = h_ele_ISO_abseta_pt_ratio->FindBin( searchEta , 20.001 );
+    	nomval=h_ele_ISO_abseta_pt_ratio->GetBinContent( thisBin );
+    }
 
   }
   else {
@@ -225,7 +235,10 @@ float LeptonSFHelper::GetMuonSF(  float muonPt , float muonEta , int syst , std:
     upval=upval*( 1.0+0.01 );
     downval=downval*( 1.0-0.01 );
 
-
+    if(nomval==0) {
+    	thisBin = h_mu_ID_abseta_pt_ratio->FindBin( searchEta , 20.001 );
+    	nomval=h_mu_ID_abseta_pt_ratio->GetBinContent( thisBin );
+    }
 
   }
   else if ( type == "Trigger" ){
@@ -260,7 +273,11 @@ float LeptonSFHelper::GetMuonSF(  float muonPt , float muonEta , int syst , std:
     downval=( nomval-error );
     upval=upval*( 1.0+0.005 );
     downval=downval*( 1.0-0.005 );
-
+   
+    if(nomval==0) {
+    	thisBin = h_mu_ISO_abseta_pt_ratio->FindBin( searchEta , 20.001 );
+    	nomval=h_mu_ISO_abseta_pt_ratio->GetBinContent( thisBin );
+    } 
 
   }
   else {
@@ -345,9 +362,9 @@ void LeptonSFHelper::SetElectronHistos( ){
 
 void LeptonSFHelper::SetMuonHistos( ){
 
-  std::string IDinputFile = std::string(getenv("CMSSW_BASE")) + "/src/MiniAOD/MiniAODHelper/data/leptonSF/" + "MuonID_Z_2016runB_2p6fb.root";
+  std::string IDinputFile = std::string(getenv("CMSSW_BASE")) + "/src/MiniAOD/MiniAODHelper/data/leptonSF/" + "MuonID_Z_RunBCD_prompt80X_7p65.root";
   std::string TRIGGERinputFile =  std::string(getenv("CMSSW_BASE")) + "/src/MiniAOD/MiniAODHelper/data/leptonSF/" + "SingleMuonTrigger_Z_RunCD_Reco76X_Feb15.root";
-  std::string ISOinputFile =  std::string(getenv("CMSSW_BASE")) + "/src/MiniAOD/MiniAODHelper/data/leptonSF/" + "MuonISO_Z_2016runB_2p6fb.root";
+  std::string ISOinputFile =  std::string(getenv("CMSSW_BASE")) + "/src/MiniAOD/MiniAODHelper/data/leptonSF/" + "MuonIso_Z_RunBCD_prompt80X_7p65.root";
 
   TFile *f_IDSF = new TFile(std::string(IDinputFile).c_str(),"READ");
   TFile *f_TRIGGERSF = new TFile(std::string(TRIGGERinputFile).c_str(),"READ");
