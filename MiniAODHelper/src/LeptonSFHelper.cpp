@@ -243,10 +243,10 @@ float LeptonSFHelper::GetMuonSF(  float muonPt , float muonEta , int syst , std:
   }
   else if ( type == "Trigger" ){
 
-    //float mult4p2 = 0.2834;
-    //float mult4p3 = 0.7166;
-    float mult4p2 = 0.0482;
-    float mult4p3 = 0.9518;
+    float mult4p2 = 0.2834;
+    float mult4p3 = 0.7166;
+    //float mult4p2 = 0.0482;
+    //float mult4p3 = 0.9518;
 
     thisBin = h_mu_TRIGGER_abseta_pt_ratio4p3->FindBin(searchEta,searchPt);
     float nomval4p3=h_mu_TRIGGER_abseta_pt_ratio4p3->GetBinContent(thisBin);
@@ -365,8 +365,8 @@ void LeptonSFHelper::SetElectronHistos( ){
 void LeptonSFHelper::SetMuonHistos( ){
 
   std::string IDinputFile = std::string(getenv("CMSSW_BASE")) + "/src/MiniAOD/MiniAODHelper/data/leptonSF/" + "MuonID_Z_RunBCD_prompt80X_7p65.root";
-  //std::string TRIGGERinputFile =  std::string(getenv("CMSSW_BASE")) + "/src/MiniAOD/MiniAODHelper/data/leptonSF/" + "SingleMuonTrigger_Z_RunCD_Reco76X_Feb15.root";
-  std::string TRIGGERinputFile =  std::string(getenv("CMSSW_BASE")) + "/src/MiniAOD/MiniAODHelper/data/leptonSF/" + "SingleMuonTrigger_Z_RunBCD_prompt80X_7p65.root";
+  std::string TRIGGERinputFile =  std::string(getenv("CMSSW_BASE")) + "/src/MiniAOD/MiniAODHelper/data/leptonSF/" + "SingleMuonTrigger_Z_RunCD_Reco76X_Feb15.root";
+  //std::string TRIGGERinputFile =  std::string(getenv("CMSSW_BASE")) + "/src/MiniAOD/MiniAODHelper/data/leptonSF/" + "SingleMuonTrigger_Z_RunBCD_prompt80X_7p65.root";
   std::string ISOinputFile =  std::string(getenv("CMSSW_BASE")) + "/src/MiniAOD/MiniAODHelper/data/leptonSF/" + "MuonIso_Z_RunBCD_prompt80X_7p65.root";
 
   TFile *f_IDSF = new TFile(std::string(IDinputFile).c_str(),"READ");
@@ -374,10 +374,10 @@ void LeptonSFHelper::SetMuonHistos( ){
   TFile *f_ISOSF = new TFile(std::string(ISOinputFile).c_str(),"READ");
 
   h_mu_ID_abseta_pt_ratio = (TH2F*)f_IDSF->Get("MC_NUM_TightIDandIPCut_DEN_genTracks_PAR_pt_spliteta_bin1/abseta_pt_ratio");
-  //h_mu_TRIGGER_abseta_pt_ratio4p3 = (TH2F*)f_TRIGGERSF->Get("runD_IsoMu20_OR_IsoTkMu20_HLTv4p3_PtEtaBins/abseta_pt_ratio");
-  //h_mu_TRIGGER_abseta_pt_ratio4p2 = (TH2F*)f_TRIGGERSF->Get("runD_IsoMu20_OR_IsoTkMu20_HLTv4p2_PtEtaBins/abseta_pt_ratio");
-  h_mu_TRIGGER_abseta_pt_ratio4p3 = (TH2F*)f_TRIGGERSF->Get("IsoMu22_OR_IsoTkMu22_PtEtaBins_Run273158_to_274093/efficienciesDATA/abseta_pt_DATA");
-  h_mu_TRIGGER_abseta_pt_ratio4p2 = (TH2F*)f_TRIGGERSF->Get("IsoMu22_OR_IsoTkMu22_PtEtaBins_Run274094_to_276097/efficienciesDATA/abseta_pt_DATA");
+  h_mu_TRIGGER_abseta_pt_ratio4p3 = (TH2F*)f_TRIGGERSF->Get("runD_IsoMu20_OR_IsoTkMu20_HLTv4p3_PtEtaBins/abseta_pt_ratio");
+  h_mu_TRIGGER_abseta_pt_ratio4p2 = (TH2F*)f_TRIGGERSF->Get("runD_IsoMu20_OR_IsoTkMu20_HLTv4p2_PtEtaBins/abseta_pt_ratio");
+  //h_mu_TRIGGER_abseta_pt_ratio4p3 = (TH2F*)f_TRIGGERSF->Get("IsoMu22_OR_IsoTkMu22_PtEtaBins_Run273158_to_274093/efficienciesDATA/abseta_pt_DATA");
+  //h_mu_TRIGGER_abseta_pt_ratio4p2 = (TH2F*)f_TRIGGERSF->Get("IsoMu22_OR_IsoTkMu22_PtEtaBins_Run274094_to_276097/efficienciesDATA/abseta_pt_DATA");
   h_mu_ISO_abseta_pt_ratio = (TH2F*)f_ISOSF->Get("MC_NUM_TightRelIso_DEN_TightID_PAR_pt_spliteta_bin1/abseta_pt_ratio");
 
 }
